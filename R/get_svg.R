@@ -12,19 +12,22 @@
 #'
 #' @return Return a XML document and a SVG file if \code{file} is specified.
 #' @importFrom magrittr "%>%"
-#' @importClassesFrom STRINGdb "STRINGdb-class"
+#' @import STRINGdb
 #' @export
 #'
 #' @examples
 #' # save the XML document in a variable for downstream manipulation
 #' xml <- get_svg(string_db, string_ids)
 #'
+#' \dontrun{
 #' # print a SVG file
 #' get_svg(string_db, string_ids, file = "my_network.svg")
+#' }
 #'
 get_svg <- function(string_db, string_ids, required_score = NULL,
                     network_flavor = c("evidence", "confidence", "actions"),
                     file = NULL, payload_id = NULL) {
+  postFormSmart <- utils::getFromNamespace("postFormSmart", "STRINGdb")
   if (length(string_ids) > 2000) {
     cat("ERROR: We do not support lists with more than 2000 genes.\nPlease
         reduce the size of your input and rerun the analysis. \t")
@@ -44,7 +47,7 @@ get_svg <- function(string_db, string_ids, required_score = NULL,
     species = string_db$species, caller_identity = "STRINGdb-package"
   )
   if (!is.null(payload_id)) params["internal_payload_id"] <- payload_id
-  img <- STRINGdb:::postFormSmart(urlStr, .params = params) %>%
+  img <- postFormSmart(urlStr, .params = params) %>%
     xml2::read_xml()
   if (!is.null(file)) xml2::write_xml(img, file)
   return(img)

@@ -37,7 +37,9 @@ Return a XML document and a SVG file if \code{file} is specified.
 # save the XML document in a variable for downstream manipulation
 xml <- get_svg(string_db, string_ids)
 
+\dontrun{
 # print a SVG file
 get_svg(string_db, string_ids, file = "my_network.svg")
+}
 
 }
