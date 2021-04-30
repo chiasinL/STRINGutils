@@ -31,7 +31,8 @@ specify the flavor of the network}
 Return a XML document and a SVG file if \code{file} is specified.
 }
 \description{
-\code{get_svg} is a modified version of \code{STRINGdb}'s \code{get_png}. It returns a SVG image of a STRING network with the given identifiers.
+\code{get_svg} is a modified version of \code{STRINGdb}'s \code{get_png}.
+It returns a SVG image of a STRING network with the given identifiers.
 }
 \examples{
 # save the XML document in a variable for downstream manipulation

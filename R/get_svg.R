@@ -1,6 +1,7 @@
 #' Get a network SVG file from STRING website
 #'
-#' \code{get_svg} is a modified version of \code{STRINGdb}'s \code{get_png}. It returns a SVG image of a STRING network with the given identifiers.
+#' \code{get_svg} is a modified version of \code{STRINGdb}'s \code{get_png}.
+#'     It returns a SVG image of a STRING network with the given identifiers.
 #'
 #' @param string_db An instantiated STRINGdb reference class. See \code{\link[STRINGdb]{STRINGdb-class}}.
 #' @param string_ids A vector of STRING IDs.
