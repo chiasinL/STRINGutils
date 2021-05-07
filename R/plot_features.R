@@ -7,13 +7,15 @@
 #' @param string_db An instantiated STRINGdb reference class. See \code{\link[STRINGdb]{STRINGdb-class}}.
 #' @param n_hits Integer. The number of nodes to get from STRING network.
 #' @param entire Logical. Return the entire STRING network if \code{TRUE}. Only clusters contain features of interest are returned if \code{FALSE}.
+#' @param get_ann Logical. Add annotations to the table of features of interest.
 #'
 #' @return Return a SVG file of network of features of interest.
 #' @import xml2
 #' @export
 #'
 #' @examples
-plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire = FALSE) {
+plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire = FALSE, get_ann = FALSE) {
+  message("Getting ", n_hits, " nodes from STRING network...", sep = "\n")
   # extract hits
   hits <- df_mapped$STRING_id[1:n_hits]
   all_clusters <- string_db$get_clusters(hits)
@@ -21,15 +23,25 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
     dplyr::filter(gene %in% names(colors_vec)) %>%
     dplyr::filter(!is.na(STRING_id))
 
-  readr::write_excel_csv(hits_filt, "table_features_of_int.csv")
+  if (isTRUE(get_ann)) {
+    hits_filt_ann <- string_db$get_annotations(hits_filt$STRING_id) %>%
+      dplyr::left_join(hits_filt, by = c("string_ids" = "STRING_id"))
+    readr::write_excel_csv(hits_filt_ann, "table_features_of_int.csv")
+  } else {
+    readr::write_excel_csv(hits_filt, "table_features_of_int.csv")
+  }
+  message("Table of features of interest is printed to: \"table_features_of_int.csv\" ", sep = "\n")
 
   if (isTRUE(entire)) {
     xml <- get_svg(string_db, hits)
   } else {
+    message("--------------------------", sep = "\n")
     subnetwork_df <- get_cluster_of_int(all_clusters, hits_filt)
+    message("--------------------------", sep = "\n")
     xml <- get_svg(string_db, unlist(all_clusters[subnetwork_df$cluster_index],
                                      recursive = TRUE))
     readr::write_excel_csv(subnetwork_df, "cluster_info_features_of_int.csv")
+    message("Cluster information for features of interest is printed to: \"cluster_info_features_of_int.csv\" since entire = FALSE", sep = "\n")
   }
 
   # get relevant nodes, then change color and label
@@ -38,8 +50,8 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
   modify_nodes(nodes_set, colors_vec)
 
   # enlarge font size for labels
-  m <- xml_children(z)[1]
-  xml_text(m) <- str_replace(xml_text(m), "font-size: 12px;", "font-size: 32px;")
+  m <- xml_children(xml)[1]
+  xml_text(m) <- stringr::str_replace(xml_text(m), "font-size: 12px;", "font-size: 32px;")
 
   write_xml(xml, "features_of_int.svg")
 }
