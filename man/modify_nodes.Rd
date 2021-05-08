@@ -2,17 +2,14 @@
 % Please edit documentation in R/utils.R
 \name{modify_nodes}
 \alias{modify_nodes}
-\title{Change color and remove label of features of interest}
+\title{Change color of features of interest and remove labels}
 \usage{
-modify_nodes(nodes_set, colors_vec)
+modify_nodes(xml, colors_vec)
 }
 \arguments{
-\item{nodes_set}{A \code{xml_nodeset} as defined in \code{xml2}.}
+\item{xml}{A \code{xml_document} as defined in \code{xml2}.}
 
 \item{colors_vec}{A named character vector of colors for feature of interest.}
-}
-\value{
-
 }
 \description{
 \code{modify_nodes} modifies nodes of features of interest by assigning

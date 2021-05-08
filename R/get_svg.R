@@ -17,12 +17,13 @@
 #' @export
 #'
 #' @examples
-#' # save the XML document in a variable for downstream manipulation
-#' xml <- get_svg(string_db, string_ids)
+#'
 #'
 #' \dontrun{
+#' # save the XML document in a variable for downstream manipulation
+#' xml <- get_svg(string_db, hits)
 #' # print a SVG file
-#' get_svg(string_db, string_ids, file = "my_network.svg")
+#' get_svg(string_db, hits, file = "my_network.svg")
 #' }
 #'
 get_svg <- function(string_db, string_ids, required_score = NULL,

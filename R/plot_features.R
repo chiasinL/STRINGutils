@@ -20,8 +20,8 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
   hits <- df_mapped$STRING_id[1:n_hits]
   all_clusters <- string_db$get_clusters(hits)
   hits_filt <- df_mapped %>%
-    dplyr::filter(gene %in% names(colors_vec)) %>%
-    dplyr::filter(!is.na(STRING_id))
+    dplyr::filter("gene" %in% names(colors_vec)) %>%
+    dplyr::filter(!is.na("STRING_id"))
 
   if (isTRUE(get_ann)) {
     hits_filt_ann <- string_db$get_annotations(hits_filt$STRING_id) %>%
@@ -44,10 +44,10 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
     message("Cluster information for features of interest is printed to: \"cluster_info_features_of_int.csv\" since entire = FALSE", sep = "\n")
   }
 
-  # get relevant nodes, then change color and label
-  b <- xml_children(xml)[5]
-  nodes_set <- xml_children(b)[5:length(xml_children(b))]
-  modify_nodes(nodes_set, colors_vec)
+  # # get relevant nodes, then change color and label
+  # b <- xml_children(xml)[5]
+  # nodes_set <- xml_children(b)[5:length(xml_children(b))]
+  modify_nodes(xml, colors_vec)
 
   # enlarge font size for labels
   m <- xml_children(xml)[1]

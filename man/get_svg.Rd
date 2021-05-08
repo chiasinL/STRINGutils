@@ -35,12 +35,13 @@ Return a XML document and a SVG file if \code{file} is specified.
 It returns a SVG image of a STRING network with the given identifiers.
 }
 \examples{
-# save the XML document in a variable for downstream manipulation
-xml <- get_svg(string_db, string_ids)
+
 
 \dontrun{
+# save the XML document in a variable for downstream manipulation
+xml <- get_svg(string_db, hits)
 # print a SVG file
-get_svg(string_db, string_ids, file = "my_network.svg")
+get_svg(string_db, hits, file = "my_network.svg")
 }
 
 }

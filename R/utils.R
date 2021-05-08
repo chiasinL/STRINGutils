@@ -5,20 +5,25 @@
 #' labels from all nodes but those of interest. The idea and logic of this came
 #' from the \code{change_STRING_colors.py} from STRING \href{https://string-db.org/}{website}.
 #'
-#' @param nodes_set A \code{xml_nodeset} as defined in \code{xml2}.
+#' @param xml A \code{xml_document} as defined in \code{xml2}.
 #' @param colors_vec A named character vector of colors for feature of interest.
 #'
 #' @import xml2
 #'
 #' @examples
-#' feature_of_int <- c("ATAD1", "BCL2L14", "MFGE8", "IDO1", "ABCA1")
+#' feature_of_int <- c("VSTM2L","TBC1D2","LENG9","TMEM27","TSPAN1",
+#' "TNNC1","MGAM","TRIM22","KLK11","TYROBP")
 #' colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
 #' names(colors_vec) <- feature_of_int
 #'
 # todo
 # - example code for the function
 # - unit test
-modify_nodes <- function(nodes_set, colors_vec) {
+modify_nodes <- function(xml, colors_vec) {
+  # get relevant nodes, then change color and label
+  b <- xml_children(xml)[5]
+  nodes_set <- xml_children(b)[5:length(xml_children(b))]
+
   text_color <- c("rgb(0,0,0)", "black")
   colors_list <- NULL
   nodes_of_int_index <- NULL
@@ -79,9 +84,15 @@ modify_nodes <- function(nodes_set, colors_vec) {
 #' @return Return a data frame with the information of which cluster the features are found and the number of features in those clusters.
 #'
 #' @examples
+#' \dontrun{
+#' # get all clusters from STRING network using get_clusters method of STRINGdb
+#' all_clusters <- string_db$get_clusters(hits)
+#'
+#' get_cluster_of_int(all_clusters, hits_filt)
+#' }
 get_cluster_of_int <- function(all_clusters, hits_filt) {
   features_matched <- NULL
-  subnetwork_df <- dplyr::as_tibble() %>%
+  subnetwork_df <- dplyr::tibble() %>%
     tibble::add_column(cluster_index = as.numeric(""),
                        features = "",
                        features_cluster = as.numeric(""))
