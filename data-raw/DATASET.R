@@ -36,5 +36,5 @@ subnetwork_df <- get_cluster_of_int(all_clusters, hits_filt)
 xml <- xml2::xml_serialize(xml, NULL)
 # nodes_set <- xml2::xml_serialize(nodes_set, NULL)
 
-save(ori_xml, xml, subnetwork_df, colors_vec, hits, string_db,
-     all_clusters, hits_filt, file = "./tests/test_data.Rda")
+save(ori_xml, subnetwork_df, colors_vec, hits, string_db,
+     all_clusters, hits_filt, file = "./tests/testthat/test_data.Rda")

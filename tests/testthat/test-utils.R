@@ -9,7 +9,6 @@ test_that("get_cluster_of_int gets clusters of interest", {
 
 test_that("modify_nodes ", {
   ori_xml_mod <- xml2::xml_unserialize(ori_xml)
-  xml_mod <- xml2::xml_unserialize(xml)
   expect_equal(modify_nodes(ori_xml_mod, colors_vec), NULL)
 })
 
