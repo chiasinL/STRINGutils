@@ -17,11 +17,13 @@
 #' @export
 #'
 #' @examples
+#' # extract the most significant 200 genes
+#' hits <- example1_mapped$STRING_id[1:200]
 #'
-#'
-#' \dontrun{
 #' # save the XML document in a variable for downstream manipulation
 #' xml <- get_svg(string_db, hits)
+#'
+#' \dontrun{
 #' # print a SVG file
 #' get_svg(string_db, hits, file = "my_network.svg")
 #' }

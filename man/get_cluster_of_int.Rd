@@ -17,3 +17,11 @@ Return a data frame with the information of which cluster the features are found
 \description{
 \code{get_cluster_of_int} finds the clusters that the features of interest belong.
 }
+\examples{
+\dontrun{
+# get all clusters from STRING network using get_clusters method of STRINGdb
+all_clusters <- string_db$get_clusters(hits)
+
+get_cluster_of_int(all_clusters, hits_filt)
+}
+}

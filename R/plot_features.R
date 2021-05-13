@@ -14,6 +14,16 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' feature_of_int <- c("VSTM2L", "TBC1D2", "LENG9", "TMEM27", "TSPAN1",
+#'  "TNNC1", "MGAM","TRIM22","KLK11", "TYROBP")
+#' colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
+#' names(colors_vec) <- feature_of_int
+#'
+#' plot_features(example1_mapped, colors_vec, string_db, n_hits = 500, entire = TRUE, get_ann = TRUE)
+#'s
+#' plot_features(example1_mapped, colors_vec, string_db, get_ann = TRUE)
+#' }
 plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire = FALSE, get_ann = FALSE) {
   message("Getting ", n_hits, " nodes from STRING network...", sep = "\n")
   # extract hits

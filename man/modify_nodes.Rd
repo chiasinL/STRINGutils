@@ -18,7 +18,8 @@ labels from all nodes but those of interest. The idea and logic of this came
 from the \code{change_STRING_colors.py} from STRING \href{https://string-db.org/}{website}.
 }
 \examples{
-feature_of_int <- c("ATAD1", "BCL2L14", "MFGE8", "IDO1", "ABCA1")
+feature_of_int <- c("VSTM2L","TBC1D2","LENG9","TMEM27","TSPAN1",
+"TNNC1","MGAM","TRIM22","KLK11","TYROBP")
 colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
 names(colors_vec) <- feature_of_int
 

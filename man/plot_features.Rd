@@ -32,3 +32,15 @@ Return a SVG file of network of features of interest.
 \description{
 \code{plot_features} gets the STRING network or subnetwork of features of interests and save as a SVG file.
 }
+\examples{
+\dontrun{
+feature_of_int <- c("VSTM2L", "TBC1D2", "LENG9", "TMEM27", "TSPAN1",
+ "TNNC1", "MGAM","TRIM22","KLK11", "TYROBP")
+colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
+names(colors_vec) <- feature_of_int
+
+plot_features(example1_mapped, colors_vec, string_db, n_hits = 500, entire = TRUE, get_ann = TRUE)
+s
+plot_features(example1_mapped, colors_vec, string_db, get_ann = TRUE)
+}
+}
