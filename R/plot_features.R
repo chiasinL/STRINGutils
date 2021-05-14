@@ -30,7 +30,7 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
   hits <- df_mapped$STRING_id[1:n_hits]
   all_clusters <- string_db$get_clusters(hits)
   hits_filt <- df_mapped %>%
-    dplyr::filter("gene" %in% names(colors_vec)) %>%
+    dplyr::filter(gene %in% names(colors_vec)) %>%
     dplyr::filter(!is.na("STRING_id"))
 
   if (isTRUE(get_ann)) {

@@ -39,7 +39,7 @@ It returns a SVG image of a STRING network with the given identifiers.
 hits <- example1_mapped$STRING_id[1:200]
 
 # save the XML document in a variable for downstream manipulation
-xml <- get_svg(string_db, example1_mapped$STRING_id[1:200])
+xml <- get_svg(string_db, hits)
 
 \dontrun{
 # print a SVG file

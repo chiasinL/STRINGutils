@@ -6,7 +6,10 @@ Authors@R:
            family = "Liew",
            role = c("aut", "cre"),
            email = "c.s.liew@huskers.unl.edu")
-Description: What the package does (one paragraph)todo.
+Description: STRINGdb R package provides a convenient way to access the popular STRING
+    database (https://string-db.org) from R. STRINGutils is built on top of STRINGdb 
+    and provides convenient functions to get SVG file of STRING network and 
+    highlight features of interest.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
@@ -22,7 +25,11 @@ Imports:
     xml2,
     stringr,
     readr,
-    tibble
+    tibble,
+    magick
 Suggests: 
+    rmarkdown,
+    knitr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr

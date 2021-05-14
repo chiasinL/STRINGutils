@@ -1,0 +1,138 @@
+---
+title: "STRINGutils Vignette"
+author: "Chia Sin Liew"
+date: "May 13, 2021"
+output: 
+  rmarkdown::html_vignette:
+  toc: true
+vignette: >
+  %\VignetteIndexEntry{STRINGutils Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE, results = "hide", warning = FALSE, echo = FALSE}
+suppressPackageStartupMessages(c(
+  library(STRINGutils),
+  library(STRINGdb),
+  library(magrittr)
+))
+```
+# Introduction
+
+*STRINGdb R* package provides a convenient way to access the popular STRING
+database (https://string-db.org) from *R*. *STRINGutils* is built on top of [*STRINGdb*](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) 
+and provides convenient functions to get SVG file of *STRING* network and 
+highlight features of interest.
+
+To prepare data necessary for *STRINGutils*, we first run code from *STRINGdb*
+[vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/STRINGdb/inst/doc/STRINGdb.pdf).
+
+Briefly, we map the analyzed data of a microarray study to a human *STRING* database 
+to get *STRING* identifiers. Please see *STRINGdb* vignette for more information.
+
+```{r from_STRINGdb, message = FALSE}
+string_db <- STRINGdb$new(version = "11", species = 9606,
+                          score_threshold = 200,
+                          input_directory = "")
+
+data("diff_exp_example1")
+
+example1_mapped <- string_db$map(diff_exp_example1, "gene", removeUnmappedRows = TRUE)
+
+hits <- example1_mapped$STRING_id[1:200]
+```
+
+## Get SVG of *STRING* network 
+
+Once we have *string_db*, an instantiated STRINGdb reference class with associated 
+information from *STRING* database, we can run the get SVG function. If *file* is
+specified, the SVG will be saved.
+
+```{r get_svg}
+xml <- get_svg(string_db, hits)
+```
+```{r get_svg_file, eval = FALSE}
+xml <- get_svg(string_db, hits, file = "my_network.svg")
+```
+
+## Get full or subnetwork for proteins of interest
+
+If we have a list of proteins of interest, the **full** or **sub-** *STRING* network of the proteins can be obtained. These proteins will be highlighted by the colors of choice.
+
+For illustration purposes, here we will pick the top 10 proteins.
+
+```{r pick_top_10}
+hits_filt <- example1_mapped %>%
+  dplyr::slice_min(pvalue, n = 10, with_ties = FALSE) %>%
+  dplyr::filter(!is.na(STRING_id)) # <- filter out proteins with no mapped STRING IDs
+```
+
+Let's take a look at the proteins of interest. It is good to know that none of the
+top 10 proteins are missing *STRING* IDs.
+
+```{r top_10_table, echo = FALSE}
+knitr::kable(hits_filt, align = "ccc")
+```
+
+Next, we need to make a color vector of the same length as our proteins of interest
+to specify what colors to highlight our proteins with.
+
+```{r make_color_vec}
+colors_vec <- rep("rgb(101,226,11)", nrow(hits_filt))
+names(colors_vec) <- hits_filt$gene 
+```
+
+Let's take a look at the color vector. 
+
+```{r color_vector} 
+colors_vec
+```
+
+**Note**: It is important to double check to make sure that the proteins of interest
+are matched up to their intended colors. 
+
+Now, we can go ahead and get the network. The function saves the network as a SVG 
+file in the current directory as "features_of_int.svg".
+
+For full network:
+
+```{r get_full_network}
+plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
+```
+
+The SVG file can be viewed with the *magick::image_read_svg* function in *RStudio*
+viewer.
+
+```{r view_svg1, out.width = "80%", fig.cap = "Full network"}
+magick::image_read_svg("features_of_int.svg")
+```
+
+The *default* number of proteins obtained from the network is set to 200. This number can be change with *n_hits*. 
+
+For example, to increase the number of proteins in the network to 500:
+
+```{r increase_n_hits}
+plot_features(example1_mapped, colors_vec, string_db, n_hits = 500, entire = TRUE)
+```
+```{r view_svg2, out.width = "80%", fig.cap = "Full network, higher n_hits"}
+magick::image_read_svg("features_of_int.svg")
+```
+
+For subnetwork:
+
+```{r get_subnetwork}
+plot_features(example1_mapped, colors_vec, string_db)
+```
+```{r view_svg3, out.width = "80%", fig.cap = "Subnetwork"}
+magick::image_read_svg("features_of_int.svg")
+```
+
+
