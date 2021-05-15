@@ -11,7 +11,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%",
   message = FALSE,
-  results = "hide",
   warning = FALSE
 )
 ```
@@ -47,7 +46,7 @@ colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
 names(colors_vec) <- feature_of_int
 ```
 
-```{r get_svg}
+```{r get_svg, results = "hide"}
 library(STRINGutils)
 svg <- get_svg(string_db, hits, file = "my_network.svg")
 ```
@@ -59,7 +58,7 @@ If we have a list of proteins of interest, the **full** or **sub-** STRING netwo
 
 For full network:
 
-```{r get_full_network}
+```{r get_full_network, results = "hide"}
 plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
 ```
 ```{r view_svg2, out.width = "80%", echo = FALSE}
@@ -68,7 +67,7 @@ magick::image_read_svg("features_of_int.svg")
 
 For subnetwork:
 
-```{r get_subnetwork}
+```{r get_subnetwork, results = "hide"}
 plot_features(example1_mapped, colors_vec, string_db)
 ```
 ```{r view_svg3, out.width = "80%", echo = FALSE}

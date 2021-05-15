@@ -31,6 +31,8 @@ library(STRINGutils)
 svg <- get_svg(string_db, hits, file = "my_network.svg")
 ```
 
+<img src="man/figures/README-view_svg1-1.png" width="80%" />
+
 If we have a list of proteins of interest, the **full** or **sub-**
 STRING network of the proteins can be obtained. These proteins will be
 highlighted by the colors of choice.
@@ -41,8 +43,12 @@ For full network:
 plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
 ```
 
+<img src="man/figures/README-view_svg2-1.png" width="80%" />
+
 For subnetwork:
 
 ``` r
 plot_features(example1_mapped, colors_vec, string_db)
 ```
+
+<img src="man/figures/README-view_svg3-1.png" width="80%" />
