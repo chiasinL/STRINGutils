@@ -9,7 +9,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  message = FALSE,
+  results = "hide",
+  warning = FALSE
 )
 ```
 
@@ -24,13 +27,13 @@ STRINGutils provides additional utilities for [STRINGdb](https://www.bioconducto
 
 You can install STRINGutils with:
 
-```{r install}
+```{r install, results = "hide"}
 devtools::install_github("chiasinL/STRINGutils")
 ```
 
 ## Quick demo
 
-For more thorough walkthrough of the package, please see the [vignette](./vignettes/STRINGutils_Vignette.Rmd).
+For more thorough walkthrough of the package, please see the [vignette](./vignettes/STRINGutils_Vignette.html).
 
 Getting SVG file of STRING network:
 
@@ -46,9 +49,9 @@ names(colors_vec) <- feature_of_int
 
 ```{r get_svg}
 library(STRINGutils)
-get_svg(string_db, hits, file = "my_network.svg")
+svg <- get_svg(string_db, hits, file = "my_network.svg")
 ```
-```{r view_svg1, out.width = "80%", fig.cap = "Full network"}
+```{r view_svg1, out.width = "80%", echo = FALSE}
 magick::image_read_svg("my_network.svg")
 ```
 
@@ -59,7 +62,7 @@ For full network:
 ```{r get_full_network}
 plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
 ```
-```{r view_svg2, out.width = "80%", fig.cap = "Full network"}
+```{r view_svg2, out.width = "80%", echo = FALSE}
 magick::image_read_svg("features_of_int.svg")
 ```
 
@@ -68,6 +71,6 @@ For subnetwork:
 ```{r get_subnetwork}
 plot_features(example1_mapped, colors_vec, string_db)
 ```
-```{r view_svg3, out.width = "80%", fig.cap = "Subnetwork"}
+```{r view_svg3, out.width = "80%", echo = FALSE}
 magick::image_read_svg("features_of_int.svg")
 ```
