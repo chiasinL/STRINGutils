@@ -8,6 +8,7 @@ plot_features(
   df_mapped,
   colors_vec,
   string_db,
+  network_flavor = c("evidence", "confidence", "actions"),
   n_hits = 200,
   entire = FALSE,
   get_ann = FALSE
@@ -19,6 +20,9 @@ plot_features(
 \item{colors_vec}{A named character vector of colors for feature of interest.}
 
 \item{string_db}{An instantiated STRINGdb reference class. See \code{\link[STRINGdb]{STRINGdb-class}}.}
+
+\item{network_flavor}{One of "evidence", "confidence", "actions",
+specify the flavor of the network}
 
 \item{n_hits}{Integer. The number of nodes to get from STRING network.}
 

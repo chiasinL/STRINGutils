@@ -26,7 +26,8 @@ Imports:
     stringr,
     readr,
     tibble,
-    magick
+    magick,
+    rsvg
 Suggests: 
     rmarkdown,
     knitr,

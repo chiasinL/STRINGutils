@@ -8,6 +8,8 @@
 #' @param n_hits Integer. The number of nodes to get from STRING network.
 #' @param entire Logical. Return the entire STRING network if \code{TRUE}. Only clusters contain features of interest are returned if \code{FALSE}.
 #' @param get_ann Logical. Add annotations to the table of features of interest.
+#' @param network_flavor One of "evidence", "confidence", "actions",
+#'     specify the flavor of the network
 #'
 #' @return Return a SVG file of network of features of interest.
 #' @import xml2
@@ -24,7 +26,9 @@
 #'s
 #' plot_features(example1_mapped, colors_vec, string_db, get_ann = TRUE)
 #' }
-plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire = FALSE, get_ann = FALSE) {
+plot_features <- function(df_mapped, colors_vec, string_db,
+                          network_flavor = c("evidence", "confidence", "actions"),
+                          n_hits = 200, entire = FALSE, get_ann = FALSE) {
   message("Getting ", n_hits, " nodes from STRING network...", sep = "\n")
   # extract hits
   hits <- df_mapped$STRING_id[1:n_hits]
@@ -43,13 +47,14 @@ plot_features <- function(df_mapped, colors_vec, string_db, n_hits = 200, entire
   message("Table of features of interest is printed to: \"table_features_of_int.csv\" ", sep = "\n")
 
   if (isTRUE(entire)) {
-    xml <- get_svg(string_db, hits)
+    xml <- get_svg(string_db, hits, network_flavor = network_flavor)
   } else {
     message("--------------------------", sep = "\n")
     subnetwork_df <- get_cluster_of_int(all_clusters, hits_filt)
     message("--------------------------", sep = "\n")
     xml <- get_svg(string_db, unlist(all_clusters[subnetwork_df$cluster_index],
-                                     recursive = TRUE))
+                                     recursive = TRUE),
+                   network_flavor = network_flavor)
     readr::write_excel_csv(subnetwork_df, "cluster_info_features_of_int.csv")
     message("Cluster information for features of interest is printed to: \"cluster_info_features_of_int.csv\" since entire = FALSE", sep = "\n")
   }

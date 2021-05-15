@@ -1,0 +1,69 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# STRINGutils
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+STRINGutils provides additional utilities for [STRINGdb](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) such as getting SVG file of *STRING* network and highlighting features of interest.
+
+## Installation
+
+You can install STRINGutils with:
+
+```{r install}
+devtools::install_github("chiasinL/STRINGutils")
+```
+
+## Quick demo
+
+For more thorough walkthrough of the package, please see the [vignette](./vignettes/STRINGutils_Vignette.Rmd).
+
+Getting SVG file of STRING network:
+
+```{r, echo = FALSE, result = "hide"}
+library(STRINGutils)
+data(list = c("example1_mapped", "string_db"))
+hits <- example1_mapped$STRING_id[1:200]
+```
+
+```{r get_svg}
+library(STRINGutils)
+get_svg(string_db, hits, file = "my_network.svg")
+```
+```{r view_svg1, out.width = "80%", fig.cap = "Full network"}
+magick::image_read_svg("my_network.svg")
+```
+
+If we have a list of proteins of interest, the **full** or **sub-** STRING network of the proteins can be obtained. These proteins will be highlighted by the colors of choice.
+
+For full network:
+
+```{r get_full_network}
+plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
+```
+```{r view_svg2, out.width = "80%", fig.cap = "Full network"}
+magick::image_read_svg("features_of_int.svg")
+```
+
+For subnetwork:
+
+```{r get_subnetwork}
+plot_features(example1_mapped, colors_vec, string_db)
+```
+```{r view_svg3, out.width = "80%", fig.cap = "Subnetwork"}
+magick::image_read_svg("features_of_int.svg")
+```

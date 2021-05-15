@@ -27,16 +27,16 @@ suppressPackageStartupMessages(c(
 ```
 # Introduction
 
-*STRINGdb R* package provides a convenient way to access the popular STRING
-database (https://string-db.org) from *R*. *STRINGutils* is built on top of [*STRINGdb*](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) 
-and provides convenient functions to get SVG file of *STRING* network and 
+`STRINGdb R` package provides a convenient way to access the popular STRING
+database (https://string-db.org) from `R`. `STRINGutils` is built on top of [`STRINGdb`](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) 
+and provides convenient functions to get SVG file of STRING network and 
 highlight features of interest.
 
-To prepare data necessary for *STRINGutils*, we first run code from *STRINGdb*
+To prepare data necessary for `STRINGutils`, we first run code from `STRINGdb`
 [vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/STRINGdb/inst/doc/STRINGdb.pdf).
 
-Briefly, we map the analyzed data of a microarray study to a human *STRING* database 
-to get *STRING* identifiers. Please see *STRINGdb* vignette for more information.
+Briefly, we map the analyzed data of a microarray study to a human STRING database 
+to get STRING identifiers. Please see `STRINGdb` vignette for more information.
 
 ```{r from_STRINGdb, message = FALSE}
 string_db <- STRINGdb$new(version = "11", species = 9606,
@@ -50,10 +50,10 @@ example1_mapped <- string_db$map(diff_exp_example1, "gene", removeUnmappedRows =
 hits <- example1_mapped$STRING_id[1:200]
 ```
 
-## Get SVG of *STRING* network 
+## Get SVG of STRING network 
 
-Once we have *string_db*, an instantiated STRINGdb reference class with associated 
-information from *STRING* database, we can run the get SVG function. If *file* is
+Once we have `string_db`, an instantiated STRINGdb reference class with associated 
+information from STRING database, we can run the get SVG function. If `file` is
 specified, the SVG will be saved.
 
 ```{r get_svg}
@@ -65,7 +65,7 @@ xml <- get_svg(string_db, hits, file = "my_network.svg")
 
 ## Get full or subnetwork for proteins of interest
 
-If we have a list of proteins of interest, the **full** or **sub-** *STRING* network of the proteins can be obtained. These proteins will be highlighted by the colors of choice.
+If we have a list of proteins of interest, the **full** or **sub-** STRING network of the proteins can be obtained. These proteins will be highlighted by the colors of choice.
 
 For illustration purposes, here we will pick the top 10 proteins.
 
@@ -76,7 +76,7 @@ hits_filt <- example1_mapped %>%
 ```
 
 Let's take a look at the proteins of interest. It is good to know that none of the
-top 10 proteins are missing *STRING* IDs.
+top 10 proteins are missing STRING IDs.
 
 ```{r top_10_table, echo = FALSE}
 knitr::kable(hits_filt, align = "ccc")
@@ -108,19 +108,22 @@ For full network:
 plot_features(example1_mapped, colors_vec, string_db, entire = TRUE)
 ```
 
-The SVG file can be viewed with the *magick::image_read_svg* function in *RStudio*
+The SVG file can be viewed with the `magick::image_read_svg()` function in `RStudio`
 viewer.
 
 ```{r view_svg1, out.width = "80%", fig.cap = "Full network"}
 magick::image_read_svg("features_of_int.svg")
 ```
 
-The *default* number of proteins obtained from the network is set to 200. This number can be change with *n_hits*. 
+The default number of proteins obtained from the network is set to 200. This number can be change with `n_hits`. The network view mode for STRING network can also be
+defined with `network_flavor`. More information about this can be found at STRING's [website](https://string-db.org).
 
-For example, to increase the number of proteins in the network to 500:
+For example, to increase the number of proteins in the network to 500 and use the
+network view mode of `confidence` instead of the default `evidence`:
 
 ```{r increase_n_hits}
-plot_features(example1_mapped, colors_vec, string_db, n_hits = 500, entire = TRUE)
+plot_features(example1_mapped, colors_vec, string_db, n_hits = 500, entire = TRUE,
+              network_flavor = "confidence")
 ```
 ```{r view_svg2, out.width = "80%", fig.cap = "Full network, higher n_hits"}
 magick::image_read_svg("features_of_int.svg")
