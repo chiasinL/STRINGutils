@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-STRINGutils provides additional utilities for [STRINGdb](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) such as getting SVG file of *STRING* network and highlighting features of interest.
+STRINGutils provides additional utilities for [STRINGdb](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html) such as getting SVG file of STRING network and highlighting features of interest.
 
 ## Installation
 
@@ -34,10 +34,14 @@ For more thorough walkthrough of the package, please see the [vignette](./vignet
 
 Getting SVG file of STRING network:
 
-```{r, echo = FALSE, result = "hide"}
+```{r doc_setup, echo = FALSE, result = "hide"}
 library(STRINGutils)
 data(list = c("example1_mapped", "string_db"))
 hits <- example1_mapped$STRING_id[1:200]
+feature_of_int <- c("VSTM2L","TBC1D2","LENG9","TMEM27","TSPAN1",
+                    "TNNC1","MGAM","TRIM22","KLK11","TYROBP")
+colors_vec <- rep("rgb(101,226,11)", length(feature_of_int))
+names(colors_vec) <- feature_of_int
 ```
 
 ```{r get_svg}
