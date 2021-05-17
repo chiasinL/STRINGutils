@@ -22,7 +22,7 @@ devtools::install_github("chiasinL/STRINGutils")
 ## Quick demo
 
 For more thorough walkthrough of the package, please see the
-[vignette](./vignettes/STRINGutils_Vignette.html).
+[vignette](./docs/articles/STRINGutils_Vignette.html).
 
 Getting SVG file of STRING network:
 

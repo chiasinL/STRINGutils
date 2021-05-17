@@ -115,7 +115,7 @@ viewer.
 magick::image_read_svg("features_of_int.svg")
 ```
 
-The default number of proteins obtained from the network is set to 200. This number can be change with `n_hits`. The network view mode for STRING network can also be
+The default number of proteins obtained from the network is set to 200. This number can be changed with `n_hits`. The network view mode for STRING network can also be
 defined with `network_flavor`. More information about this can be found at STRING's [website](https://string-db.org).
 
 For example, to increase the number of proteins in the network to 500 and use the
