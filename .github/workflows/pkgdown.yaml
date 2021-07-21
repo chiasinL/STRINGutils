@@ -10,7 +10,12 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: [macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macOS-latest, windows-latest]
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
