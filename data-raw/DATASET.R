@@ -33,5 +33,5 @@ subnetwork_df <- get_cluster_of_int(all_clusters, hits_filt)
 
 save(ori_xml, subnetwork_df, colors_vec, hits, string_db,
      all_clusters, hits_filt,
-     version = 2,
+     # version = 2,
      file = "./tests/testthat/test_data.Rda")
