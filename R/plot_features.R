@@ -13,6 +13,7 @@
 #'
 #' @return Return a SVG file of network of features of interest.
 #' @import xml2
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -34,7 +35,7 @@ plot_features <- function(df_mapped, colors_vec, string_db,
   hits <- df_mapped$STRING_id[1:n_hits]
   all_clusters <- string_db$get_clusters(hits)
   hits_filt <- df_mapped %>%
-    dplyr::filter(gene %in% names(colors_vec)) %>%
+    dplyr::filter(.data$gene %in% names(colors_vec)) %>%
     dplyr::filter(!is.na("STRING_id"))
 
   if (isTRUE(get_ann)) {

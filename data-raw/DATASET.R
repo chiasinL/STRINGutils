@@ -24,14 +24,19 @@ hits_filt <- example1_mapped %>%
 colors_vec <- rep("rgb(101,226,11)", nrow(hits_filt))
 names(colors_vec) <- hits_filt$gene
 
-modify_nodes(xml, colors_vec)
+STRINGutils:::modify_nodes(xml, colors_vec)
 
 # for subset of network
 all_clusters <- string_db$get_clusters(hits)
 
-subnetwork_df <- get_cluster_of_int(all_clusters, hits_filt)
+subnetwork_df <- STRINGutils:::get_cluster_of_int(all_clusters, hits_filt)
 
-save(ori_xml, subnetwork_df, colors_vec, hits, string_db,
+# save(ori_xml, subnetwork_df, colors_vec, hits, string_db,
+#      all_clusters, hits_filt,
+#      # version = 2,
+#      file = "./tests/testthat/test_data.Rda")
+
+save(subnetwork_df, colors_vec, hits, string_db,
      all_clusters, hits_filt,
-     # version = 2,
+     version = 2,
      file = "./tests/testthat/test_data.Rda")
