@@ -1,7 +1,7 @@
 ---
 title: "STRINGutils Vignette"
 author: "Chia Sin Liew"
-date: "`r format(Sys.time(), '%B %d %Y')`"
+date: "May 13, 2021"
 output: 
   rmarkdown::html_vignette:
   toc: true

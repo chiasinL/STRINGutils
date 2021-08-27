@@ -4,8 +4,6 @@
 # STRINGutils
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/chiasinL/STRINGutils/workflows/R-CMD-check/badge.svg)](https://github.com/chiasinL/STRINGutils/actions)
 <!-- badges: end -->
 
 STRINGutils provides additional utilities for
